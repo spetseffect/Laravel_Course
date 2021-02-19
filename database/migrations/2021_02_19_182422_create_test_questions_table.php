@@ -15,8 +15,8 @@ class CreateTestQuestionsTable extends Migration
     {
         Schema::create('test_questions', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('test_id');
-            $table->bigInteger('question_group_id');
+            $table->bigInteger('test_id')->unsigned();
+            $table->bigInteger('question_group_id')->unsigned();
             $table->boolean('multiple_choice')->default(0);
             $table->integer('number_sort');
             $table->string('task',1000);

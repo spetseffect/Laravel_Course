@@ -16,7 +16,7 @@ class CreateQuestionGroupsTable extends Migration
         Schema::create('question_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name',150);
-            $table->bigInteger('test_id');
+            $table->bigInteger('test_id')->unsigned();
             $table->foreign('test_id')->references('id')->on('tests');
 //            $table->timestamps();
         });

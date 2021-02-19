@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,12 +15,18 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
-            'name'=>'Admin',
-            'login'=>'admin',
-            'password'=>bcrypt('123'),
-            'created_at'=>date('d-m-Y H:i:s'),
-            'updated_at'=>date('d-m-Y H:i:s'),
-        ]);
+        $findUser=DB::table('users')
+            ->where('login','=','admin')
+            ->first();
+        if(!$findUser){
+            $user=new User();
+            $user->name='Admin';
+            $user->login='admin';
+            $user->password=bcrypt('123');
+            $user->created_at=date('d-m-Y H:i:s');
+            $user->updated_at=date('d-m-Y H:i:s');
+            $user->save();
+        }
+
     }
 }

@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class RolesTableSeeder extends Seeder
 {
@@ -13,9 +15,21 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('roles')->insert([
-            ['name'=>'Admin'],
-            ['name'=>'User']
-        ]);
+        $findRole=DB::table('roles')
+            ->where('name','=','User')
+            ->first();
+        if(!$findRole){
+            $role=new Role();
+            $role->name='User';
+            $role->save();
+        }
+        $findRole=DB::table('roles')
+            ->where('name','=','Admin')
+            ->first();
+        if(!$findRole){
+            $role=new Role;
+            $role->name='Admin';
+            $role->save();
+        }
     }
 }

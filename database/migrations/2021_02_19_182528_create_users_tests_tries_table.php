@@ -15,8 +15,8 @@ class CreateUsersTestsTriesTable extends Migration
     {
         Schema::create('users_tests_tries', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
-            $table->bigInteger('test_id');
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('test_id')->unsigned();
             $table->timestamp('when')->default(date('d-m-y H:i:s'));
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('test_id')->references('id')->on('tests');

@@ -15,7 +15,7 @@ class CreateTestQuestionsAnswersTable extends Migration
     {
         Schema::create('test_questions_answers', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('question_id');
+            $table->bigInteger('question_id')->unsigned();
             $table->string('answers',500);
             $table->string('image',255);
             $table->integer('weight');
