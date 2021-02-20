@@ -13,10 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', [App\Http\Controllers\MainController::class, 'index']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('main');
+Route::get('/test/create', [App\Http\Controllers\MainController::class, 'create'])->name('main.create');
