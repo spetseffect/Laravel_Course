@@ -27,7 +27,7 @@ class CreateUsersRolesTable extends Migration
                 ->where('name','=','Admin')
                 ->first();
             $findUser=DB::table('users')
-                ->where('login','=','admin')
+                ->where('email','=','admin@admin.dom')
                 ->first();
             if($findRole && $findUser){
                 DB::table('users_roles')->insert([
