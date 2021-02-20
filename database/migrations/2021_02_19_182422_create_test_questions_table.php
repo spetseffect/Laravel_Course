@@ -19,7 +19,7 @@ class CreateTestQuestionsTable extends Migration
             $table->bigInteger('question_group_id')->unsigned();
             $table->boolean('multiple_choice')->default(0);
             $table->integer('number_sort');
-            $table->string('task',1000);
+            $table->string('task',500);
             $table->string('image',255);
             $table->foreign('test_id')->references('id')->on('tests');
             $table->foreign('question_group_id')->references('id')->on('question_groups');
