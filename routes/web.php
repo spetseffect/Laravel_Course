@@ -19,3 +19,5 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('main');
 Route::get('/test/create', [App\Http\Controllers\MainController::class, 'create'])->name('main.create');
+Route::post('/test/store', [App\Http\Controllers\MainController::class, 'store'])->name('main.store');
+Route::post('/test/addimg', [App\Http\Controllers\MainController::class, 'addImg'])->name('main.addImg');
