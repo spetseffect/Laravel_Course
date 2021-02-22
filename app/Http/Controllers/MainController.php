@@ -68,11 +68,17 @@ class MainController extends Controller
         //
     }
 
+//      Return is current user in role "Admin"
+//      @param  int  $id
     public function isAdmin($id): bool{
         return User::isAdmin($id);
     }
 
-    public function addImg(Request $request) {
+//      Store a newly created resource in storage.
+//      @param  \Illuminate\Http\Request  $request
+//      @return JSON-string with name of stored file
+    public function addImage(Request $request) {
+        //если админ    !!!!!!!!!!!!!!!
         $request->validate([
             'file' => 'required|mimes:jpg,png,gif|max:1024',
         ]);
@@ -80,41 +86,17 @@ class MainController extends Controller
         $origExtension=$file->getClientOriginalExtension();
         $newFName=time().'_'.uniqid().'.'.$origExtension;
         Storage::putFileAs('public', new File($file->getPathname()), $newFName);
-//        $answer=array("mes"=>'',"tempFile"=>'article_'.$time.'.jpg');
-//        $outW=500;//максимальная ширина
-//        $outH=500;//максимальная высота
-//        $max_size=1024*1024*1;//максимальный размер загружаемого изображения в байтах
-//        if($_FILES['f']['size']==0){$answer['mes']='Файл не загружен. Повторите попытку';}
-//        else{
-//            if($_FILES['f']['size']>$max_size){$answer['mes']='Файл превысил допустимый размер. Выберите файл размером до 2 Мб и повторите попытку.';}
-//            else{
-//                $imsize=getimagesize($_FILES['f']['tmp_name']);
-//                if($imsize[2]!=1 && $imsize[2]!=2 && $imsize[2]!=3){$answer['mes']='Этот тип файлов не поддерживается.';}
-//                else{
-//                    if($imsize[2]==2){
-//                        $im=imagecreatefromjpeg($_FILES['f']['tmp_name']);}
-//                    if($imsize[2]==1){
-//                        $im=imagecreatefromgif($_FILES['f']['tmp_name']);}
-//                    if($imsize[2]==3){
-//                        $im=imagecreatefrompng($_FILES['f']['tmp_name']);}
-//                    //получаем высоту и ширину загруженного изображения
-//                    $w=$imsize[0]; $h=$imsize[1];
-//                    //вычисляем будущие размеры изображения
-//                    if($h>$w && $h>$outH){$H=$outH; $W=ceil($w/($h/$outH));}
-//                    elseif($w>$h && $w>$outW){$W=$outW; $H=ceil($h/($w/$outW));}
-//                    else{$H=$h; $W=$w;}
-//
-//                    $newimg=imagecreatetruecolor($W,$H);
-//                    imagecopyresampled($newimg,$im,0,0,0,0,$W,$H,$w,$h);
-//                    imagejpeg($newimg,$path);
-//                    imagedestroy($newimg);
-//                }
-//            }
-//        }
-//        echo json_encode($answer);
         $result = [
             'fileName' => '/storage/'. $newFName,
         ];
         return json_encode($result);
+    }
+//      Delete a newly created resource in storage.
+//      @param  \Illuminate\Http\Request  $request
+//      @return boolean value about deleting file
+    public function deleteImage(Request $request) {
+        //если админ    !!!!!!!!!!!!!!!
+
+        return $request->src;
     }
 }

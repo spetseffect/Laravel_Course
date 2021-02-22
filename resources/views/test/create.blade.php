@@ -127,12 +127,33 @@
                                 console.log(status+', '+msg);
                                 input.val('');},
                             success: function(a){
-                                console.log('data', a);
                                 a=JSON.parse(a);
-                                wrap.html('<img src="'+a.fileName+'" alt="">');
+                                wrap.html('<div class="added-img-q-task">' +
+                                    '<img src="'+a.fileName+'" alt="">' +
+                                    '<button>&times;</button>' +
+                                    '<form method="post" action="{{ route('main.delImg') }}">' +
+                                        '@csrf'+
+                                        '<input type="hidden" name="src" value="'+a.fileName+'">' +
+                                    '</form>' +
+                                    '</div>');
                             }
                         });
                     }
+                }
+            });
+        });
+        $('#qlist').on('click.delAddedImgTask','.added-img-q-task button',function (){
+            let button=$(this);
+            let wrap=button.parent('.added-img-q-task');
+            let form=wrap.find('form');
+            $.ajax({
+                url:form.attr('action'),
+                type:'POST',
+                data: new FormData(form.get(0)),
+                processData:false,
+                contentType:false,
+                success:function (data){
+                    console.log(data);
                 }
             });
         });
