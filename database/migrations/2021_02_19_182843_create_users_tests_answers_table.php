@@ -20,7 +20,7 @@ class CreateUsersTestsAnswersTable extends Migration
             $table->bigInteger('test_questions_answer_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('users_tests_try_id')->references('id')->on('users_tests_tries');
-            $table->foreign('test_questions_answer_id')->references('id')->on('users');
+            $table->foreign('test_questions_answer_id')->references('id')->on('test_questions_answers');
         });
     }
 
