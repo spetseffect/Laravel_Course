@@ -99,14 +99,12 @@
             );
         });
         //Добавить картинку к вопросу
-        // $('#qlist').on('click.addImgTask','.add-img-q',function (){
         $('#qlist').on('submit.addImgTask','.add-img-form',function (e){
             e.preventDefault();
             let form=$(this);
-            //let parent=button.parent('.add-img-q-task');
+            let wrap=form.parent('.add-img-q-task');
             let input=form.find('input.add-img-f');
             input.trigger('click');
-            //let FD = new FormData();
             input.on('change',function (){
                 let file = $(this)[0].files[0];
                 if(file.type!=='image/png' && file.type!=='image/jpeg' && file.type!=='image/gif'){
@@ -117,21 +115,10 @@
                         alert('Слишком большой файл.');
                         input.val('');}
                     else{
-                        //FD.append('f',file);
-                        //FD.append('z',6);
-
-                        //console.log('form.serialize()',form.serialize());
-
-
-
-                        var FD = new FormData(form.get(0));
-
-
-
+                        let FD = new FormData(form.get(0));
                         $.ajax({
                             url:form.attr('action'),
                             type:'POST',
-                            //data: form.serialize(),
                             data: FD,
                             processData:false,
                             contentType:false,
@@ -141,18 +128,8 @@
                                 input.val('');},
                             success: function(a){
                                 console.log('data', a);
-                                // a=JSON.parse(a);
-                                // kolvoFotok++;
-                                // if(a.mes){alert(a.mes);}
-                                // else{$('#new-art-pics').append(
-                                //     '<div class="new-art-pic">'+
-                                //     '<img src="temp/'+a.tempFile+'"><br>'+
-                                //     'путь для вставки<br>'+
-                                //     '<span data-tempimg="'+a.tempFile+'">articles/img/'+$('#new-art-file').val()+'_'+kolvoFotok+'.jpg</span>'+
-                                //     '<div class="new-art-pic-del" data-tempimg="'+a.tempFile+'" data-filename="">&times;</div>'+
-                                //     '</div>');}
-                                // $('#add-article-addpic').removeClass('inprocess');
-                                input.val('');
+                                a=JSON.parse(a);
+                                wrap.html('<img src="'+a.fileName+'" alt="">');
                             }
                         });
                     }

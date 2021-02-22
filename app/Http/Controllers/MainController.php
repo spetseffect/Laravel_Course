@@ -77,17 +77,13 @@ class MainController extends Controller
             'file' => 'required|mimes:jpg,png,gif|max:1024',
         ]);
         $file = $request->file('file');
-        //$path='public/tmp';
         $origExtension=$file->getClientOriginalExtension();
         $newFName=time().'_'.uniqid().'.'.$origExtension;
-        $filePath = Storage::putFileAs('public', new File($file->getPathname()), $newFName);
-
-
+        Storage::putFileAs('public', new File($file->getPathname()), $newFName);
 //        $answer=array("mes"=>'',"tempFile"=>'article_'.$time.'.jpg');
 //        $outW=500;//максимальная ширина
 //        $outH=500;//максимальная высота
 //        $max_size=1024*1024*1;//максимальный размер загружаемого изображения в байтах
-//        Storage::putFileAs($file->getPath(), new File($path), $newFName);
 //        if($_FILES['f']['size']==0){$answer['mes']='Файл не загружен. Повторите попытку';}
 //        else{
 //            if($_FILES['f']['size']>$max_size){$answer['mes']='Файл превысил допустимый размер. Выберите файл размером до 2 Мб и повторите попытку.';}
@@ -116,13 +112,9 @@ class MainController extends Controller
 //            }
 //        }
 //        echo json_encode($answer);
-
         $result = [
             'fileName' => '/storage/'. $newFName,
         ];
-
-
-
         return json_encode($result);
     }
 }
